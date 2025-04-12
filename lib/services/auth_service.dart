@@ -21,7 +21,12 @@ class AuthService with ChangeNotifier {
       final userId = await DatabaseHelper.instance.createUser(user);
 
       if (userId > 0) {
-        _currentUser = user;
+        _currentUser = User(
+          id: userId,
+          address: user.address,
+          name: user.name,
+          password: user.password,
+        );
         await _saveUserSession(userId);
         notifyListeners();
         return true;
